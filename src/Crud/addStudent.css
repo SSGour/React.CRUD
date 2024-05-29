@@ -8,19 +8,31 @@ margin: 10px 0;
 
 label{
 width: 100%;
+font-size: larger;
+font-weight: 700;
 }
 
 input{
     width: 50%;
+    padding: 2px 20px;
+    font-size: large;
 }
 
 .backBtn{
     width: 150px;
     background-color: aqua;
+    font-size: large;
 }
 .addBtn{
     width: 150px;
     background-color: blue;
     color: white;
     margin-left: 20px;
+    font-size: large;
+}
+
+select{
+    width: 50%;
+    margin: 10px 0;
+    padding: 5px 0;
 }

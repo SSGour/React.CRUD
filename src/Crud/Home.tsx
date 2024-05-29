@@ -7,7 +7,7 @@ import AddStudent from "./addStudent";
 export const Home = () => {
   const [studentList, setStudentList] = useState([] as IStudent[]);
   const [displayPage, setDisplayPage] = useState(PageEnum.list);
-  const addStudent = () => {
+  const onAddStudentHandler = () => {
     setDisplayPage(PageEnum.add);
   };
   const studentListbtn = () => {
@@ -21,14 +21,17 @@ export const Home = () => {
       <section>
         {displayPage === PageEnum.list && (
           <>
-            <button className="btnAddStudent" onClickCapture={addStudent}>
+            <button
+              className="btnAddStudent"
+              onClickCapture={onAddStudentHandler}
+            >
               Add Student
             </button>
             <StudentList list={studentList} />
           </>
         )}
         {displayPage === PageEnum.add && (
-          <AddStudent backBtn={studentListbtn} />
+          <AddStudent onBackBtnHandler={studentListbtn} />
         )}
       </section>
     </>
