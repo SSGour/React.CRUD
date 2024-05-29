@@ -1,0 +1,16 @@
+header{
+    background-color: blue;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+}
+
+.btnAddStudent{
+    margin: 5% 0 0 10%;
+    transition: .3s ease-in-out;
+}
+
+.btnAddStudent:hover{
+    color: white;
+    background-color: blue;
+}
