@@ -1,3 +1,41 @@
 table{
-    
+    border-collapse: collapse;
+    width: 80%;
+    margin: 10px auto;
+    text-align: center;
+
+}
+
+td{
+    border:  1px solid black;
+    padding: 10px;
+}
+
+th{
+    border:  1px solid black;
+    padding: 10px;
+}
+
+
+tr:nth-child(even){
+    background-color: #dddddd;
+}
+
+.btnView{
+    margin: 0 2px;
+    border-radius: 5px;
+    background-color: green;
+    color: white;
+}
+.btnEdit{
+    margin: 0 2px;
+    border-radius: 5px;
+    background-color: blue;
+    color: white;
+}
+.btnDelete{
+    margin: 0 2px;
+    border-radius: 5px;
+    background-color: red;
+    color: white;
 }

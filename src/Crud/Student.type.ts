@@ -4,6 +4,7 @@ export interface IStudent {
   lastName: string;
   age: number;
   email: string;
+  school: string;
   class: number;
 }
 
@@ -13,3 +14,8 @@ export const schools = [
   "S.D. Bihani School",
   "D.A.V. School",
 ] as const;
+
+export enum PageEnum {
+  list,
+  add,
+}
