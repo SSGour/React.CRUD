@@ -13,6 +13,10 @@ export const Home = () => {
   const studentListbtn = () => {
     setDisplayPage(PageEnum.list);
   };
+
+  const addStudent = (data: IStudent) => {
+    setStudentList([...studentList, data]);
+  };
   return (
     <>
       <header>
@@ -31,7 +35,10 @@ export const Home = () => {
           </>
         )}
         {displayPage === PageEnum.add && (
-          <AddStudent onBackBtnHandler={studentListbtn} />
+          <AddStudent
+            onBackBtnHandler={studentListbtn}
+            onSubmitHandler={addStudent}
+          />
         )}
       </section>
     </>

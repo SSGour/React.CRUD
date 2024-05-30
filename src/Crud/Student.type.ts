@@ -2,10 +2,10 @@ export interface IStudent {
   id: string;
   firstName: string;
   lastName: string;
-  age: number;
+  age: string;
   email: string;
   school: string;
-  class: number;
+  standard: string;
 }
 
 export const schools = [

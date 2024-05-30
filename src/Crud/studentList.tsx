@@ -4,7 +4,7 @@ import "./studentList.css";
 interface Props {
   list: IStudent[];
 }
-const StudentList = (props: Props) => {
+const StudentList = ({ list }: Props) => {
   return (
     <div>
       <table>
@@ -16,18 +16,22 @@ const StudentList = (props: Props) => {
           <th>Class</th>
           <th>Action</th>
         </tr>
-        <tr>
-          <td>Sidhant</td>
-          <td>25</td>
-          <td>ssgour@gmail.com</td>
-          <td>md</td>
-          <td>m.com</td>
-          <td>
-            <button className="btnView">View</button>
-            <button className="btnEdit">Edit</button>
-            <button className="btnDelete">delete</button>
-          </td>
-        </tr>
+        {list.map((student) => {
+          return (
+            <tr key={student.id}>
+              <td>{`${student.firstName}${student.lastName}`}</td>
+              <td>{student.age}</td>
+              <td>{student.email}</td>
+              <td>{student.school}</td>
+              <td>{student.standard}</td>
+              <td>
+                <button className="btnView">View</button>
+                <button className="btnEdit">Edit</button>
+                <button className="btnDelete">delete</button>
+              </td>
+            </tr>
+          );
+        })}
       </table>
     </div>
   );

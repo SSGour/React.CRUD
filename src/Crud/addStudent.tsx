@@ -1,19 +1,19 @@
 import { useState } from "react";
-import { schools } from "./Student.type";
+import { IStudent, schools } from "./Student.type";
 import "./addStudent.css";
 
 interface Props {
   onBackBtnHandler: () => void;
+  onSubmitHandler: (data: IStudent) => void;
 }
 
-const AddStudent = (props: Props) => {
+const AddStudent = ({ onBackBtnHandler, onSubmitHandler }: Props) => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [age, setAge] = useState("");
   const [email, setEmail] = useState("");
   const [school, setSchool] = useState("");
   const [standard, setStandard] = useState("");
-  const { onBackBtnHandler } = props;
 
   const onFirstNameHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFirstName(e.target.value);
@@ -34,19 +34,23 @@ const AddStudent = (props: Props) => {
     setStandard(e.target.value);
   };
 
-  const onSubmitHandler = (e: React.FormEvent) => {
+  const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("First Name:", firstName);
-    console.log("Last Name:", lastName);
-    console.log("Age:", age);
-    console.log("Email:", email);
-    console.log("School:", school);
-    console.log("Standard:", standard);
+    const data: IStudent = {
+      id: new Date().toJSON().toString(),
+      firstName: firstName,
+      lastName: lastName,
+      age: age,
+      email: email,
+      school: school,
+      standard: standard,
+    };
+    onSubmitHandler(data);
   };
 
   return (
     <>
-      <form onSubmit={onSubmitHandler}>
+      <form onSubmit={handleFormSubmit}>
         <h1>Please Fill the Student Details</h1>
         <div>
           <label htmlFor="firstName">First Name:</label>
@@ -67,14 +71,14 @@ const AddStudent = (props: Props) => {
           />
         </div>
         <div>
-          <label htmlFor="Age">Age:</label>
-          <input id="Age" type="number" value={age} onChange={onAgeHandler} />
+          <label htmlFor="age">Age:</label>
+          <input id="age" type="number" value={age} onChange={onAgeHandler} />
         </div>
         <div>
-          <label htmlFor="Email">Email:</label>
+          <label htmlFor="email">Email:</label>
           <input
-            id="Email"
-            type="text"
+            id="email"
+            type="email"
             value={email}
             onChange={onEmailHandler}
           />
