@@ -86,7 +86,7 @@ const AddStudent = ({ onBackBtnHandler, onSubmitHandler }: Props) => {
         <div>
           <label htmlFor="schools">Schools:</label>
           <select id="schools" value={school} onChange={onSchoolHandler}>
-            <option value=""></option>
+            <option value="">Select</option>
             {schools.map((school) => (
               <option key={school} value={school}>
                 {school}

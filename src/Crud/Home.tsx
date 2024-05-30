@@ -3,6 +3,7 @@ import "./Home.style.css";
 import { IStudent, PageEnum } from "./Student.type";
 import StudentList from "./studentList";
 import AddStudent from "./addStudent";
+import { date } from "zod";
 
 export const Home = () => {
   const [studentList, setStudentList] = useState([] as IStudent[]);
@@ -31,7 +32,12 @@ export const Home = () => {
             >
               Add Student
             </button>
-            <StudentList list={studentList} />
+            <StudentList
+              list={studentList}
+              onDelete={(id) =>
+                setStudentList(studentList.filter((e) => e.id !== id))
+              }
+            />
           </>
         )}
         {displayPage === PageEnum.add && (

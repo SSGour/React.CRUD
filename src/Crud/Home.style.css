@@ -4,9 +4,16 @@ header{
     text-align: center;
     padding: 10px 0;
 }
+section{
+    margin: 5% auto;
+    width: 80%;
+}
 
 .btnAddStudent{
-    margin: 5% 0 0 10%;
+    float: right;
+    padding: 2px 10px;
+    margin-bottom: 10px;
+    border-radius: 10px;
     transition: .3s ease-in-out;
 }
 
