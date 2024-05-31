@@ -31,6 +31,11 @@ export const Home = () => {
     );
     setDisplayPage(PageEnum.list);
   };
+  const deleteStudent = (id: string) => {
+    if (window.confirm("Are you sure you want to delete this student?")) {
+      setStudentList(studentList.filter((student) => student.id !== id));
+    }
+  };
   return (
     <>
       <header>
@@ -47,9 +52,7 @@ export const Home = () => {
             </button>
             <StudentList
               list={studentList}
-              onDelete={(id) =>
-                setStudentList(studentList.filter((e) => e.id !== id))
-              }
+              onDelete={deleteStudent}
               onEdit={onEditHandler}
             />
           </>
