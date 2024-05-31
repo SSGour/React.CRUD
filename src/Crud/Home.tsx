@@ -3,11 +3,12 @@ import "./Home.style.css";
 import { IStudent, PageEnum } from "./Student.type";
 import StudentList from "./studentList";
 import AddStudent from "./addStudent";
-import { date } from "zod";
+import EditStudent from "./studentEdit";
 
 export const Home = () => {
-  const [studentList, setStudentList] = useState([] as IStudent[]);
+  const [studentList, setStudentList] = useState<IStudent[]>([]);
   const [displayPage, setDisplayPage] = useState(PageEnum.list);
+  const [dataToEdit, setDataToEdit] = useState<IStudent | null>(null);
   const onAddStudentHandler = () => {
     setDisplayPage(PageEnum.add);
   };
@@ -17,6 +18,18 @@ export const Home = () => {
 
   const addStudent = (data: IStudent) => {
     setStudentList([...studentList, data]);
+  };
+  const onEditHandler = (data: IStudent) => {
+    setDisplayPage(PageEnum.edit);
+    setDataToEdit(data);
+  };
+  const editStudent = (updatedStudent: IStudent) => {
+    setStudentList(
+      studentList.map((student) =>
+        student.id === updatedStudent.id ? updatedStudent : student
+      )
+    );
+    setDisplayPage(PageEnum.list);
   };
   return (
     <>
@@ -37,6 +50,7 @@ export const Home = () => {
               onDelete={(id) =>
                 setStudentList(studentList.filter((e) => e.id !== id))
               }
+              onEdit={onEditHandler}
             />
           </>
         )}
@@ -44,6 +58,14 @@ export const Home = () => {
           <AddStudent
             onBackBtnHandler={studentListbtn}
             onSubmitHandler={addStudent}
+          />
+        )}
+
+        {displayPage === PageEnum.edit && dataToEdit && (
+          <EditStudent
+            dataToEdit={dataToEdit}
+            onBackBtnHandler={studentListbtn}
+            onUpdateHandler={editStudent}
           />
         )}
       </section>

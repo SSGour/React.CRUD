@@ -3,17 +3,22 @@ import { IStudent, Schools } from "./Student.type";
 import "./addStudent.css";
 
 interface Props {
+  dataToEdit: IStudent;
   onBackBtnHandler: () => void;
-  onSubmitHandler: (data: IStudent) => void;
+  onUpdateHandler: (data: IStudent) => void;
 }
 
-const AddStudent = ({ onBackBtnHandler, onSubmitHandler }: Props) => {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [age, setAge] = useState("");
-  const [email, setEmail] = useState("");
-  const [school, setSchool] = useState("");
-  const [standard, setStandard] = useState("");
+const EditStudent = ({
+  dataToEdit,
+  onBackBtnHandler,
+  onUpdateHandler,
+}: Props) => {
+  const [firstName, setFirstName] = useState(dataToEdit.firstName);
+  const [lastName, setLastName] = useState(dataToEdit.lastName);
+  const [age, setAge] = useState(dataToEdit.age);
+  const [email, setEmail] = useState(dataToEdit.email);
+  const [school, setSchool] = useState(dataToEdit.school);
+  const [standard, setStandard] = useState(dataToEdit.standard);
 
   const onFirstNameHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFirstName(e.target.value);
@@ -37,18 +42,9 @@ const AddStudent = ({ onBackBtnHandler, onSubmitHandler }: Props) => {
 
   const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!firstName || !lastName || !age || !email || !school || !standard) {
-      alert("All fields are required.");
-      return;
-    }
 
-    if (parseInt(age) <= 5) {
-      alert("Age should be above from 5 Years");
-      return;
-    }
-
-    const data: IStudent = {
-      id: new Date().toJSON().toString(),
+    const UpdatedData: IStudent = {
+      id: dataToEdit.id,
       firstName: firstName,
       lastName: lastName,
       age: age,
@@ -56,13 +52,14 @@ const AddStudent = ({ onBackBtnHandler, onSubmitHandler }: Props) => {
       school: school,
       standard: standard,
     };
-    onSubmitHandler(data);
+    onUpdateHandler(UpdatedData);
+    onBackBtnHandler();
   };
 
   return (
     <>
       <form onSubmit={handleFormSubmit}>
-        <h1>Please Fill the Student Details</h1>
+        <h1>Edit Student Details</h1>
         <div>
           <label htmlFor="firstName">First Name:</label>
           <input
@@ -120,10 +117,10 @@ const AddStudent = ({ onBackBtnHandler, onSubmitHandler }: Props) => {
             onClickCapture={onBackBtnHandler}
             className="backBtn"
           >
-            Back
+            Cancel
           </button>
           <button type="submit" className="addBtn">
-            Add Student
+            Update
           </button>
         </div>
       </form>
@@ -131,4 +128,4 @@ const AddStudent = ({ onBackBtnHandler, onSubmitHandler }: Props) => {
   );
 };
 
-export default AddStudent;
+export default EditStudent;

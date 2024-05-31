@@ -1,46 +1,69 @@
-.stuDetails{
-    text-align: center;
-    margin-bottom: 20px;
-}
+/* studentList.css */
 
-table{
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .stuDetails {
+    text-align: center;
+    color: #333;
+    margin: 20px 0;
+    font-size: 24px;
+  }
+  
+  table {
+    width: 80%;
+    margin: 20px auto;
     border-collapse: collapse;
-    width: 100%;
-    margin: 10px auto;
-    text-align: center;
-
-}
-
-td{
-    border:  1px solid black;
-    padding: 10px;
-}
-
-th{
-    border:  1px solid black;
-    padding: 10px;
-}
-
-
-tr:nth-child(even){
-    background-color: #dddddd;
-}
-
-.btnView{
-    margin: 0 2px;
-    border-radius: 5px;
-    background-color: green;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  tr:hover {
+    background-color: #f1f1f1;
+  }
+  
+  .btnEdit, .btnDelete {
+    padding: 8px 12px;
+    margin-right: 5px;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .btnEdit {
+    background-color: #4CAF50;
     color: white;
-}
-.btnEdit{
-    margin: 0 2px;
-    border-radius: 5px;
-    background-color: blue;
+  }
+  
+  .btnEdit:hover {
+    background-color: #45a049;
+  }
+  
+  .btnDelete {
+    background-color: #f44336;
     color: white;
-}
-.btnDelete{
-    margin: 0 2px;
-    border-radius: 5px;
-    background-color: red;
-    color: white;
-}
+  }
+  
+  .btnDelete:hover {
+    background-color: #e53935;
+  }

@@ -1,38 +1,93 @@
-form{
-    width: 80%;
+/* addStudent.css */
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 0;
+  }
+  
+  form {
+    width: 50%;
     margin: 20px auto;
-}
-div{
-margin: 10px 0;
-}
-
-label{
-width: 100%;
-font-size: larger;
-font-weight: 700;
-}
-
-input{
-    width: 50%;
-    padding: 2px 10px;
-    font-size: large;
-}
-
-.backBtn{
-    width: 150px;
-    background-color: aqua;
-    font-size: large;
-}
-.addBtn{
-    width: 150px;
-    background-color: blue;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+  }
+  
+  h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 24px;
+  }
+  
+  div {
+    margin-bottom: 15px;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  input[type="text"],
+  input[type="number"],
+  input[type="email"],
+  select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-top: 6px;
+  }
+  
+  input[type="text"]:focus,
+  input[type="number"]:focus,
+  input[type="email"]:focus,
+  select:focus {
+    border-color: #007bff;
+    outline: none;
+  }
+  
+  .btnDiv {
+    text-align: center;
+  }
+  
+  button {
+    padding: 10px 20px;
+    margin: 10px 5px;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .backBtn {
+    background-color: #f44336;
+    width: 130px;
+    margin: 0 20px;
+    border-radius: 10px;
     color: white;
-    margin-left: 20px;
-    font-size: large;
-}
-
-select{
-    width: 50%;
-    margin: 10px 0;
-    padding: 5px 10px;
-}
+  }
+  
+  .backBtn:hover {
+    background-color: #e53935;
+  }
+  
+  .addBtn {
+    background-color: #4CAF50;
+    width: 130px;
+    margin: 0 20px;
+    border-radius: 10px;
+    color: white;
+  }
+  
+  .addBtn:hover {
+    background-color: #45a049;
+  }
+  

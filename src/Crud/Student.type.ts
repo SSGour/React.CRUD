@@ -8,7 +8,7 @@ export interface IStudent {
   standard: string;
 }
 
-export const schools = [
+export const Schools = [
   "M.D. School",
   "Bharat Modal School",
   "S.D. Bihani School",
@@ -18,4 +18,5 @@ export const schools = [
 export enum PageEnum {
   list,
   add,
+  edit,
 }

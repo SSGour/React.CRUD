@@ -4,10 +4,11 @@ import "./studentList.css";
 interface Props {
   list: IStudent[];
   onDelete: (id: string) => void;
+  onEdit: (data: IStudent) => void;
 }
-const StudentList = ({ list, onDelete }: Props) => {
+const StudentList = ({ list, onDelete, onEdit }: Props) => {
   return (
-    <div>
+    <>
       <h1 className="stuDetails">Student Details</h1>
       <table>
         <tr>
@@ -27,8 +28,12 @@ const StudentList = ({ list, onDelete }: Props) => {
               <td>{student.school}</td>
               <td>{student.standard}</td>
               <td>
-                <button className="btnView">View</button>
-                <button className="btnEdit">Edit</button>
+                <button
+                  className="btnEdit"
+                  onClickCapture={() => onEdit(student)}
+                >
+                  Edit
+                </button>
                 <button
                   className="btnDelete"
                   onClickCapture={() => onDelete(student.id)}
@@ -40,7 +45,7 @@ const StudentList = ({ list, onDelete }: Props) => {
           );
         })}
       </table>
-    </div>
+    </>
   );
 };
 
