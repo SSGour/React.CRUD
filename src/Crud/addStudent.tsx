@@ -57,6 +57,17 @@ const AddStudent = ({ onBackBtnHandler, onSubmitHandler }: Props) => {
       standard: standard,
     };
     onSubmitHandler(data);
+    alert("Student Added");
+    resetForm();
+  };
+
+  const resetForm = () => {
+    setFirstName("");
+    setLastName("");
+    setAge("");
+    setEmail("");
+    setSchool("");
+    setStandard("");
   };
 
   return (

@@ -53,6 +53,7 @@ const EditStudent = ({
       standard: standard,
     };
     onUpdateHandler(UpdatedData);
+    alert("Student Updated");
     onBackBtnHandler();
   };
 
