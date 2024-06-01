@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./Home.style.css";
 import { IStudent, PageEnum } from "./Student.type";
 import StudentList from "./studentList";
@@ -9,6 +9,14 @@ export const Home = () => {
   const [studentList, setStudentList] = useState<IStudent[]>([]);
   const [displayPage, setDisplayPage] = useState(PageEnum.list);
   const [dataToEdit, setDataToEdit] = useState<IStudent | null>(null);
+
+  useEffect(() => {
+    const dataInStorage = window.localStorage.getItem("StudentList");
+    if (dataInStorage) {
+      _setStudentList(JSON.parse(dataInStorage));
+    }
+  }, []);
+
   const onAddStudentHandler = () => {
     setDisplayPage(PageEnum.add);
   };
@@ -16,15 +24,20 @@ export const Home = () => {
     setDisplayPage(PageEnum.list);
   };
 
+  const _setStudentList = (list: IStudent[]) => {
+    setStudentList(list);
+    window.localStorage.setItem("StudentList", JSON.stringify(list));
+  };
+
   const addStudent = (data: IStudent) => {
-    setStudentList([...studentList, data]);
+    _setStudentList([...studentList, data]);
   };
   const onEditHandler = (data: IStudent) => {
     setDisplayPage(PageEnum.edit);
     setDataToEdit(data);
   };
   const editStudent = (updatedStudent: IStudent) => {
-    setStudentList(
+    _setStudentList(
       studentList.map((student) =>
         student.id === updatedStudent.id ? updatedStudent : student
       )
@@ -33,7 +46,7 @@ export const Home = () => {
   };
   const deleteStudent = (id: string) => {
     if (window.confirm("Are you sure you want to delete this student?")) {
-      setStudentList(studentList.filter((student) => student.id !== id));
+      _setStudentList(studentList.filter((student) => student.id !== id));
     }
   };
   return (

@@ -42,6 +42,15 @@ const EditStudent = ({
 
   const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (!firstName || !lastName || !age || !email || !school || !standard) {
+      alert("All fields are required.");
+      return;
+    }
+
+    if (parseInt(age) <= 5) {
+      alert("Age should be above from 5 Years");
+      return;
+    }
 
     const UpdatedData: IStudent = {
       id: dataToEdit.id,
