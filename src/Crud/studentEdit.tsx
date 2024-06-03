@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { IStudent, Schools } from "./Student.type";
 import "./addStudent.css";
 
-interface Props {
+interface StudentEditProps {
   dataToEdit: IStudent;
   onBackBtnHandler: () => void;
   onUpdateHandler: (data: IStudent) => void;
@@ -12,7 +12,7 @@ const EditStudent = ({
   dataToEdit,
   onBackBtnHandler,
   onUpdateHandler,
-}: Props) => {
+}: StudentEditProps) => {
   const [firstName, setFirstName] = useState(dataToEdit.firstName);
   const [lastName, setLastName] = useState(dataToEdit.lastName);
   const [age, setAge] = useState(dataToEdit.age);
@@ -113,7 +113,7 @@ const EditStudent = ({
           </select>
         </div>
         <div>
-          <label htmlFor="standard">Standard:</label>
+          <label htmlFor="standard">Class:</label>
           <input
             id="standard"
             type="text"

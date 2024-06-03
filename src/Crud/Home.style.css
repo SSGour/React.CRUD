@@ -28,7 +28,7 @@ body {
     border-radius: 8px;
   }
   
-  .btnAddStudent {
+  .btnAddStudent, .btnLogOut {
     display: block;
     float: right;
     width: 150px;
@@ -45,12 +45,16 @@ body {
     font-weight: bold;
   }
   
-  .btnAddStudent:hover {
+  .btnLogOut{
+    float: left;
+  }
+
+  .btnAddStudent:hover, .btnLogOut:hover {
     background-color: #45a049;
     transform: scale(1.05);
   }
   
-  .btnAddStudent:focus {
+  .btnAddStudent:focus, .btnLogOut:focus {
     outline: none;
     box-shadow: 0 0 0 2px rgba(72, 207, 173, 0.5);
   }

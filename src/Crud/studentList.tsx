@@ -1,28 +1,30 @@
 import { IStudent } from "./Student.type";
 import "./studentList.css";
 
-interface Props {
+interface StudentListProps {
   list: IStudent[];
   onDelete: (id: string) => void;
   onEdit: (data: IStudent) => void;
 }
-const StudentList = ({ list, onDelete, onEdit }: Props) => {
+const StudentList = ({ list, onDelete, onEdit }: StudentListProps) => {
   return (
     <>
       <h1 className="stuDetails">Student Details</h1>
       <table>
-        <tr>
+        <thead>
+          <th>S.No.</th>
           <th>Name</th>
           <th>Age</th>
           <th>Email</th>
           <th>School</th>
           <th>Class</th>
           <th>Action</th>
-        </tr>
-        {list.map((student) => {
+        </thead>
+        {list.map((student, index) => {
           return (
-            <tr key={student.id}>
-              <td>{`${student.firstName} ${student.lastName}`}</td>
+            <tbody key={student.id}>
+              <td>{index + 1}</td>
+              <td>{`${student.firstName.toUpperCase()} ${student.lastName.toUpperCase()}`}</td>
               <td>{student.age}</td>
               <td>{student.email}</td>
               <td>{student.school}</td>
@@ -41,7 +43,7 @@ const StudentList = ({ list, onDelete, onEdit }: Props) => {
                   Delete
                 </button>
               </td>
-            </tr>
+            </tbody>
           );
         })}
       </table>

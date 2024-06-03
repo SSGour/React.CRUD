@@ -5,7 +5,11 @@ import StudentList from "./studentList";
 import AddStudent from "./addStudent";
 import EditStudent from "./studentEdit";
 
-export const Home = () => {
+interface HomeProps {
+  logOutHandler: () => void;
+}
+
+export const Home = ({ logOutHandler }: HomeProps) => {
   const [studentList, setStudentList] = useState<IStudent[]>([]);
   const [displayPage, setDisplayPage] = useState(PageEnum.list);
   const [dataToEdit, setDataToEdit] = useState<IStudent | null>(null);
@@ -62,6 +66,9 @@ export const Home = () => {
               onClickCapture={onAddStudentHandler}
             >
               Add Student
+            </button>
+            <button className="btnLogOut" onClickCapture={logOutHandler}>
+              Log Out
             </button>
             <StudentList
               list={studentList}

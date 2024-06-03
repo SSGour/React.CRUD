@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import { IStudent, Schools } from "./Student.type";
 import "./addStudent.css";
 
-interface Props {
+interface AddStudentProps {
   onBackBtnHandler: () => void;
   onSubmitHandler: (data: IStudent) => void;
 }
 
-const AddStudent = ({ onBackBtnHandler, onSubmitHandler }: Props) => {
+const AddStudent = ({ onBackBtnHandler, onSubmitHandler }: AddStudentProps) => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [age, setAge] = useState("");
@@ -117,7 +117,7 @@ const AddStudent = ({ onBackBtnHandler, onSubmitHandler }: Props) => {
           </select>
         </div>
         <div>
-          <label htmlFor="standard">Standard:</label>
+          <label htmlFor="standard">Class:</label>
           <input
             id="standard"
             type="text"

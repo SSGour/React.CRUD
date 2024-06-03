@@ -20,3 +20,9 @@ export enum PageEnum {
   add,
   edit,
 }
+
+export enum LoginEnum {
+  login,
+  signUp,
+  home,
+}
