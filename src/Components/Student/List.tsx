@@ -1,5 +1,5 @@
 import { IStudent } from "./Student.type";
-import "./studentList.css";
+import "./List.css";
 
 interface StudentListProps {
   list: IStudent[];
@@ -25,7 +25,7 @@ const StudentList = ({ list, onDelete, onEdit }: StudentListProps) => {
             <tbody key={student.id}>
               <td>{index + 1}</td>
               <td>{`${student.firstName.toUpperCase()} ${student.lastName.toUpperCase()}`}</td>
-              <td>{student.age}</td>
+              <td>{student.age.toString()}</td>
               <td>{student.email}</td>
               <td>{student.school}</td>
               <td>{student.standard}</td>

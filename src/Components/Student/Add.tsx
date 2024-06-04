@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { IStudent, Schools } from "./Student.type";
-import "./addStudent.css";
+import "./add.css";
 
 interface AddStudentProps {
   onBackBtnHandler: () => void;
@@ -38,20 +38,21 @@ const AddStudent = ({ onBackBtnHandler, onSubmitHandler }: AddStudentProps) => {
   const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!firstName || !lastName || !age || !email || !school || !standard) {
-      alert("All fields are required.");
+      alert("Please fill in all the fields before submitting.");
       return;
     }
 
-    if (parseInt(age) <= 5) {
+    const stuAge = Number(age);
+    if (stuAge <= 5) {
       alert("Age should be above from 5 Years");
       return;
     }
 
     const data: IStudent = {
-      id: new Date().toJSON().toString(),
+      id: new Date().toString(),
       firstName: firstName,
       lastName: lastName,
-      age: age,
+      age: stuAge,
       email: email,
       school: school,
       standard: standard,

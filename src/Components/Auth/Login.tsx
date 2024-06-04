@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { Home } from "./Home";
+import { Home } from "../Shared/Home";
 import "./login.css";
-import { LoginEnum } from "./Student.type";
-import SignUp from "./signUp";
+import { LoginEnum } from "../Student/Student.type";
+import SignUp from "./SignUp";
 
 const Login = () => {
   const [user, setUser] = useState("");
@@ -17,6 +17,9 @@ const Login = () => {
     } else {
       if (user === "admin" || password === "admin") {
         setDisplay(LoginEnum.home);
+        reset();
+      } else {
+        alert("UserName or Password is Invalid!");
       }
     }
   };
@@ -34,6 +37,11 @@ const Login = () => {
 
   const backToLoginPage = () => {
     setDisplay(LoginEnum.login);
+  };
+
+  const reset = () => {
+    setUser("");
+    setPassword("");
   };
 
   return (

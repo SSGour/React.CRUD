@@ -2,10 +2,21 @@ export interface IStudent {
   id: string;
   firstName: string;
   lastName: string;
-  age: string;
+  age: Number;
   email: string;
   school: string;
   standard: string;
+}
+
+export interface IPrincipal {
+  id: string;
+  firstName: string;
+  lastName: string;
+  age: string;
+  email: string;
+  school: string;
+  user: string;
+  password: string;
 }
 
 export const Schools = [

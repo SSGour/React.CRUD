@@ -1,7 +1,7 @@
 // src/App.tsx
 import React from "react";
-import { Home } from "./Crud/Home";
-import Login from "./Crud/login";
+import { Home } from "./Components/Shared/Home";
+import Login from "Components/Auth/Login";
 const App: React.FC = () => {
   return (
     <div>

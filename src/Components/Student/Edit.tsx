@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { IStudent, Schools } from "./Student.type";
-import "./addStudent.css";
+import "./add.css";
 
 interface StudentEditProps {
   dataToEdit: IStudent;
@@ -15,7 +15,7 @@ const EditStudent = ({
 }: StudentEditProps) => {
   const [firstName, setFirstName] = useState(dataToEdit.firstName);
   const [lastName, setLastName] = useState(dataToEdit.lastName);
-  const [age, setAge] = useState(dataToEdit.age);
+  const [age, setAge] = useState<Number>(dataToEdit.age);
   const [email, setEmail] = useState(dataToEdit.email);
   const [school, setSchool] = useState(dataToEdit.school);
   const [standard, setStandard] = useState(dataToEdit.standard);
@@ -28,7 +28,7 @@ const EditStudent = ({
     setLastName(e.target.value);
   };
   const onAgeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setAge(e.target.value);
+    setAge(Number(e.target.value));
   };
   const onEmailHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
@@ -47,7 +47,7 @@ const EditStudent = ({
       return;
     }
 
-    if (parseInt(age) <= 5) {
+    if (age <= new Number(5)) {
       alert("Age should be above from 5 Years");
       return;
     }
@@ -90,7 +90,12 @@ const EditStudent = ({
         </div>
         <div>
           <label htmlFor="age">Age:</label>
-          <input id="age" type="number" value={age} onChange={onAgeHandler} />
+          <input
+            id="age"
+            type="number"
+            value={age.toString()}
+            onChange={onAgeHandler}
+          />
         </div>
         <div>
           <label htmlFor="email">Email:</label>

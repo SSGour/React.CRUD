@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import "./Home.style.css";
-import { IStudent, PageEnum } from "./Student.type";
-import StudentList from "./studentList";
-import AddStudent from "./addStudent";
-import EditStudent from "./studentEdit";
+import { IStudent, PageEnum } from "../Student/Student.type";
+import StudentList from "../Student/List";
+import AddStudent from "../Student/Add";
+import EditStudent from "../Student/Edit";
 
 interface HomeProps {
   logOutHandler: () => void;
