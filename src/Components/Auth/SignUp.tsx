@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./signUp.css";
 import { IPrincipal, Schools } from "../Student/Student.type";
 
@@ -9,6 +9,7 @@ interface ISignUpProps {
 const SignUp = (props: ISignUpProps) => {
   const { onBack } = props;
 
+  const [userList, setUserList] = useState<IPrincipal[]>([]);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [age, setAge] = useState("");
@@ -16,6 +17,10 @@ const SignUp = (props: ISignUpProps) => {
   const [school, setSchool] = useState("");
   const [user, setUser] = useState("");
   const [password, setPassword] = useState("");
+
+  useEffect(() => {
+    console.log(userList);
+  }, [userList]);
 
   const onFirstNameHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFirstName(e.target.value);
@@ -58,7 +63,19 @@ const SignUp = (props: ISignUpProps) => {
       alert("Age should be above from 17 Years");
       return;
     }
-    console.log(firstName, lastName, age, email, school, user, password);
+
+    const signUpData: IPrincipal = {
+      id: new Date().toString(),
+      firstName: firstName,
+      lastName: lastName,
+      age: age,
+      email: email,
+      school: school,
+      user: user,
+      password: password,
+    };
+    setUserList([...userList, signUpData]);
+    // console.log(userList);
     reset();
   };
 
@@ -135,7 +152,7 @@ const SignUp = (props: ISignUpProps) => {
           Sign Up
         </button>
         <button type="button" className="button" onClickCapture={onBack}>
-          Back
+          Log In
         </button>
       </form>
     </div>

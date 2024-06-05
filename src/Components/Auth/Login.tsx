@@ -7,7 +7,7 @@ import SignUp from "./SignUp";
 const Login = () => {
   const [user, setUser] = useState("");
   const [password, setPassword] = useState("");
-  const [display, setDisplay] = useState(LoginEnum.login);
+  const [display, setDisplay] = useState(LoginEnum.LOGIN);
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
@@ -16,7 +16,7 @@ const Login = () => {
       alert("Please fill user and password!");
     } else {
       if (user === "admin" || password === "admin") {
-        setDisplay(LoginEnum.home);
+        setDisplay(LoginEnum.HOME);
         reset();
       } else {
         alert("UserName or Password is Invalid!");
@@ -32,11 +32,11 @@ const Login = () => {
   };
 
   const signUpHandler = () => {
-    setDisplay(LoginEnum.signUp);
+    setDisplay(LoginEnum.SIGNUP);
   };
 
   const backToLoginPage = () => {
-    setDisplay(LoginEnum.login);
+    setDisplay(LoginEnum.LOGIN);
   };
 
   const reset = () => {
@@ -46,7 +46,7 @@ const Login = () => {
 
   return (
     <>
-      {display === LoginEnum.login && (
+      {display === LoginEnum.LOGIN && (
         <div className="container">
           <h1 className="title">User Login</h1>
           <form className="form" onSubmit={handleLogin}>
@@ -83,8 +83,8 @@ const Login = () => {
           </form>
         </div>
       )}
-      {display === LoginEnum.home && <Home logOutHandler={backToLoginPage} />}
-      {display === LoginEnum.signUp && <SignUp onBack={backToLoginPage} />}
+      {display === LoginEnum.HOME && <Home logOutHandler={backToLoginPage} />}
+      {display === LoginEnum.SIGNUP && <SignUp onBack={backToLoginPage} />}
     </>
   );
 };

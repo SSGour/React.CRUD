@@ -27,13 +27,13 @@ export const Schools = [
 ] as const;
 
 export enum PageEnum {
-  list,
-  add,
-  edit,
+  LIST,
+  ADD,
+  EDIT,
 }
 
 export enum LoginEnum {
-  login,
-  signUp,
-  home,
+  LOGIN,
+  SIGNUP,
+  HOME,
 }

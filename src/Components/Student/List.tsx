@@ -1,6 +1,6 @@
 import { IStudent } from "./Student.type";
 import "./List.css";
-import StudentRow from "./TableRow";
+import ListItem from "./ListItem";
 
 interface StudentListProps {
   list: IStudent[];
@@ -21,14 +21,17 @@ const StudentList = ({ list, onDelete, onEdit }: StudentListProps) => {
           <th>Class</th>
           <th>Action</th>
         </thead>
-        {list.map((student, index) => (
-          <StudentRow
-            student={student}
-            index={index}
-            onEdit={onEdit}
-            onDelete={onDelete}
-          />
-        ))}
+        <tbody>
+          {list.map((student, index) => (
+            <ListItem
+              key={index}
+              student={student}
+              rowId={index + 1}
+              onEdit={onEdit}
+              onDelete={onDelete}
+            />
+          ))}
+        </tbody>
       </table>
     </>
   );

@@ -1,9 +1,19 @@
 import "./List.css";
+import { IStudent } from "./Student.type";
 
-const StudentRow = ({ student, index, onEdit, onDelete }) => {
+interface IListItemProps {
+  student: IStudent;
+  rowId: Number;
+  onEdit: Function;
+  onDelete: Function;
+}
+
+const ListItem = (props: IListItemProps) => {
+  const { student, rowId, onEdit, onDelete } = props;
+
   return (
-    <tbody key={student.id}>
-      <td>{index + 1}</td>
+    <tr>
+      <td>{`${rowId}`}</td>
       <td>{`${student.firstName.toUpperCase()} ${student.lastName.toUpperCase()}`}</td>
       <td>{student.age.toString()}</td>
       <td>{student.email}</td>
@@ -20,8 +30,8 @@ const StudentRow = ({ student, index, onEdit, onDelete }) => {
           Delete
         </button>
       </td>
-    </tbody>
+    </tr>
   );
 };
 
-export default StudentRow;
+export default ListItem;

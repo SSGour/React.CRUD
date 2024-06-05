@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { IStudent, Schools } from "./Student.type";
 import "./add.css";
+import { StudentContext } from "Context/StudentContext";
 
 interface AddStudentProps {
   onBackBtnHandler: () => void;
@@ -8,6 +9,7 @@ interface AddStudentProps {
 }
 
 const AddStudent = ({ onBackBtnHandler, onSubmitHandler }: AddStudentProps) => {
+  // const studentContext = useContext(StudentContext);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [age, setAge] = useState("");
@@ -58,6 +60,7 @@ const AddStudent = ({ onBackBtnHandler, onSubmitHandler }: AddStudentProps) => {
       standard: standard,
     };
     onSubmitHandler(data);
+
     alert("Student Added");
     resetForm();
   };

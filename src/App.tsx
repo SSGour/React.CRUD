@@ -2,11 +2,14 @@
 import React from "react";
 import { Home } from "./Components/Shared/Home";
 import Login from "Components/Auth/Login";
+import { StudentProvider } from "Context/StudentProvider";
 const App: React.FC = () => {
   return (
     <div>
-      {/* <Home /> */}
-      <Login />
+      <StudentProvider>
+        {/* <Home /> */}
+        <Login />
+      </StudentProvider>
     </div>
   );
 };
