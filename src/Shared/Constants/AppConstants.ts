@@ -9,3 +9,7 @@ export const PageUrls = {
 };
 
 //TODO:hello
+
+export const UserStorageKeys = {
+  UserKey: "UserList",
+};

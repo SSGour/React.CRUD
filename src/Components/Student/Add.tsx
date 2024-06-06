@@ -9,7 +9,6 @@ interface AddStudentProps {
 }
 
 const AddStudent = ({ onBackBtnHandler, onSubmitHandler }: AddStudentProps) => {
-  // const studentContext = useContext(StudentContext);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [age, setAge] = useState("");

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./signUp.css";
 import { IPrincipal, Schools } from "../Student/Student.type";
+import { UserStorageKeys } from "Shared/Constants/AppConstants";
 
 interface ISignUpProps {
   onBack: () => void;
@@ -18,9 +19,9 @@ const SignUp = (props: ISignUpProps) => {
   const [user, setUser] = useState("");
   const [password, setPassword] = useState("");
 
-  useEffect(() => {
-    console.log(userList);
-  }, [userList]);
+  // useEffect(() => {
+  //   console.log(userList);
+  // }, [userList]);
 
   const onFirstNameHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFirstName(e.target.value);
@@ -64,6 +65,15 @@ const SignUp = (props: ISignUpProps) => {
       return;
     }
 
+    const existingUser = userList.find(
+      (u) => u.user === user || u.email === email
+    );
+
+    if (existingUser) {
+      alert("Username or Email already exists. Please choose another.");
+      return;
+    }
+
     const signUpData: IPrincipal = {
       id: new Date().toString(),
       firstName: firstName,
@@ -74,8 +84,13 @@ const SignUp = (props: ISignUpProps) => {
       user: user,
       password: password,
     };
-    setUserList([...userList, signUpData]);
+    const updatedUserList = [...userList, signUpData];
+    setUserList(updatedUserList);
     // console.log(userList);
+    window.localStorage.setItem(
+      UserStorageKeys.UserKey,
+      JSON.stringify(updatedUserList)
+    );
     reset();
   };
 
@@ -152,7 +167,7 @@ const SignUp = (props: ISignUpProps) => {
           Sign Up
         </button>
         <button type="button" className="button" onClickCapture={onBack}>
-          Log In
+          LogIn
         </button>
       </form>
     </div>

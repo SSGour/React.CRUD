@@ -11,13 +11,17 @@ interface HomeProps {
   logOutHandler: () => void;
 }
 
+// Home component
 export const Home = ({ logOutHandler }: HomeProps) => {
-  // const [studentList, setStudentList] = useState<IStudent[]>([]);
+  // State to manage the current display page (list, add, edit)
   const [displayPage, setDisplayPage] = useState(PageEnum.LIST);
+  // State to manage the student data being edited
   const [dataToEdit, setDataToEdit] = useState<IStudent | null>(null);
 
+  // Accessing the student context
   const studentContext = useContext(StudentContext);
 
+  // useEffect to load the student list from local storage on component mount
   useEffect(() => {
     const dataInStorage = window.localStorage.getItem(
       LocalStorageKeys.StudentListKey
@@ -25,20 +29,23 @@ export const Home = ({ logOutHandler }: HomeProps) => {
 
     if (dataInStorage) {
       const list = JSON.parse(dataInStorage);
-      updateStudentList(list);
+      studentContext.setStudents(list);
     }
   }, []);
 
+  // Handler to switch to the add student page
   const onAddStudentHandler = () => {
     setDisplayPage(PageEnum.ADD);
   };
+
+  // Handler to switch to the student list page
   const studentListbtn = () => {
     setDisplayPage(PageEnum.LIST);
   };
 
+  // Function to update the student list in context and local storage
   const updateStudentList = (list: IStudent[]) => {
     studentContext.setStudents(list);
-    // setStudentList(list);
 
     window.localStorage.setItem(
       LocalStorageKeys.StudentListKey,
@@ -46,29 +53,35 @@ export const Home = ({ logOutHandler }: HomeProps) => {
     );
   };
 
+  // Function to add a new student to the list
   const addStudent = (data: IStudent) => {
-    studentContext.add(data);
-    updateStudentList([...studentContext.students, data]);
+    const updatedList = [...studentContext.students, data];
+    updateStudentList(updatedList);
+    setDisplayPage(PageEnum.LIST);
   };
+
+  // Handler to switch to the edit student page and set the data to be edited
   const onEditHandler = (data: IStudent) => {
     setDisplayPage(PageEnum.EDIT);
     setDataToEdit(data);
   };
-  const editStudent = (updatedStudent: IStudent) => {
-    studentContext.update(updatedStudent);
 
-    updateStudentList(
-      studentContext.students.map((student) =>
-        student.id === updatedStudent.id ? updatedStudent : student
-      )
+  // Function to edit an existing student in the list
+  const editStudent = (updatedStudent: IStudent) => {
+    const updatedList = studentContext.students.map((student) =>
+      student.id === updatedStudent.id ? updatedStudent : student
     );
+    updateStudentList(updatedList);
     setDisplayPage(PageEnum.LIST);
   };
+
+  // Function to delete a student from the list
   const deleteStudent = (id: string) => {
     if (window.confirm("Are you sure you want to delete this student?")) {
-      updateStudentList(
-        studentContext.students.filter((student) => student.id !== id)
+      const updatedList = studentContext.students.filter(
+        (student) => student.id !== id
       );
+      updateStudentList(updatedList);
     }
   };
 
