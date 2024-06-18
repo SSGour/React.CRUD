@@ -1,5 +1,5 @@
 import { ReactNode, useState } from "react";
-import { StudentContextType, StudentContext } from "./StudentContext";
+import { StudentContext } from "./StudentContext";
 import { IStudent } from "Components/Student/Student.type";
 
 interface IStudentProviderProps {
@@ -28,16 +28,10 @@ export const StudentProvider: React.FC<IStudentProviderProps> = (
     students.push(stu);
     // setStudents()
   };
-  //   const [user, setUser] = React.useState<StudentContextType>({
-  //     name: "John Doe",
-  //     age: 30,
-  //     updateUser: (name: string, age: number) => setUser({ name, age }),
-  //   });
 
   return (
     <StudentContext.Provider value={{ students, setStudents, add, update }}>
       {props.children}
     </StudentContext.Provider>
   );
-  //   return <StudentContext.Provider value={user}>{children}</UserContext.Provider>;
 };

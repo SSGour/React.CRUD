@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { IStudent, Schools } from "./Student.type";
 import "./add.css";
+import { StudentContext } from "Context/StudentContext";
 
 interface StudentEditProps {
   dataToEdit: IStudent;
@@ -13,8 +14,9 @@ const EditStudent = ({
   onBackBtnHandler,
   onUpdateHandler,
 }: StudentEditProps) => {
-  const [firstName, setFirstName] = useState(dataToEdit.firstName);
-  const [lastName, setLastName] = useState(dataToEdit.lastName);
+  const studentContext = useContext(StudentContext);
+  const [firstName, setFirstName] = useState<string>(dataToEdit.firstName);
+  const [lastName, setLastName] = useState<string>(dataToEdit.lastName);
   const [age, setAge] = useState<Number>(dataToEdit.age);
   const [email, setEmail] = useState(dataToEdit.email);
   const [school, setSchool] = useState(dataToEdit.school);
@@ -63,6 +65,7 @@ const EditStudent = ({
     };
     onUpdateHandler(UpdatedData);
     alert("Student Updated");
+    studentContext.update(UpdatedData);
     onBackBtnHandler();
   };
 

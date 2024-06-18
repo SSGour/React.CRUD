@@ -8,7 +8,7 @@ export interface IStudent {
   standard: string;
 }
 
-export interface IPrincipal {
+export interface ITeacher {
   id: string;
   firstName: string;
   lastName: string;

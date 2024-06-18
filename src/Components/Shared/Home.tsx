@@ -55,8 +55,8 @@ export const Home = ({ logOutHandler }: HomeProps) => {
 
   // Function to add a new student to the list
   const addStudent = (data: IStudent) => {
-    const updatedList = [...studentContext.students, data];
-    updateStudentList(updatedList);
+    const addStudent = [...studentContext.students, data];
+    updateStudentList(addStudent);
     setDisplayPage(PageEnum.LIST);
   };
 
@@ -78,10 +78,10 @@ export const Home = ({ logOutHandler }: HomeProps) => {
   // Function to delete a student from the list
   const deleteStudent = (id: string) => {
     if (window.confirm("Are you sure you want to delete this student?")) {
-      const updatedList = studentContext.students.filter(
+      const deleteStudent = studentContext.students.filter(
         (student) => student.id !== id
       );
-      updateStudentList(updatedList);
+      updateStudentList(deleteStudent);
     }
   };
 

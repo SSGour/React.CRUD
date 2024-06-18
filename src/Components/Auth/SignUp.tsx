@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useContext } from "react";
 import "./signUp.css";
-import { IPrincipal, Schools } from "../Student/Student.type";
+import { ITeacher, Schools } from "../Student/Student.type";
 import { UserStorageKeys } from "Shared/Constants/AppConstants";
+import { TeacherContext } from "Context/TeacherContext";
 
 interface ISignUpProps {
   onBack: () => void;
@@ -10,7 +11,8 @@ interface ISignUpProps {
 const SignUp = (props: ISignUpProps) => {
   const { onBack } = props;
 
-  const [userList, setUserList] = useState<IPrincipal[]>([]);
+  // const [userList, setUserList] = useState<ITeacher[]>([]);
+  const teachersContext = useContext(TeacherContext);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [age, setAge] = useState("");
@@ -65,7 +67,7 @@ const SignUp = (props: ISignUpProps) => {
       return;
     }
 
-    const existingUser = userList.find(
+    const existingUser = teachersContext.teachers.find(
       (u) => u.user === user || u.email === email
     );
 
@@ -74,7 +76,7 @@ const SignUp = (props: ISignUpProps) => {
       return;
     }
 
-    const signUpData: IPrincipal = {
+    const signUpData: ITeacher = {
       id: new Date().toString(),
       firstName: firstName,
       lastName: lastName,
@@ -84,13 +86,14 @@ const SignUp = (props: ISignUpProps) => {
       user: user,
       password: password,
     };
-    const updatedUserList = [...userList, signUpData];
-    setUserList(updatedUserList);
+    const updatedUserList = [...teachersContext.teachers, signUpData];
+    teachersContext.setTeachers(updatedUserList);
     // console.log(userList);
     window.localStorage.setItem(
       UserStorageKeys.UserKey,
       JSON.stringify(updatedUserList)
     );
+    alert("User Registered");
     reset();
   };
 
