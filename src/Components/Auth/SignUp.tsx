@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import "./signUp.css";
 import { ITeacher, Schools } from "../Student/Student.type";
-import { UserStorageKeys } from "Shared/Constants/AppConstants";
+import { LocalStorageKeys } from "Shared/Constants/AppConstants";
 import { TeacherContext } from "Context/TeacherContext";
 
 interface ISignUpProps {
@@ -90,7 +90,7 @@ const SignUp = (props: ISignUpProps) => {
     teachersContext.setTeachers(updatedUserList);
     // console.log(userList);
     window.localStorage.setItem(
-      UserStorageKeys.UserKey,
+      LocalStorageKeys.UserKey,
       JSON.stringify(updatedUserList)
     );
     alert("User Registered");

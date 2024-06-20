@@ -1,26 +1,41 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Home } from "../Shared/Home";
 import "./login.css";
-import { LoginEnum } from "../Student/Student.type";
+import { ITeacher, LoginEnum } from "../Student/Student.type";
 import SignUp from "./SignUp";
-import { UserStorageKeys } from "Shared/Constants/AppConstants";
+import { LocalStorageKeys } from "Shared/Constants/AppConstants";
 
 const Login = () => {
   const [user, setUser] = useState("");
   const [password, setPassword] = useState("");
   const [display, setDisplay] = useState(LoginEnum.LOGIN);
+  const [teachers, setTeachers] = useState<ITeacher[]>([]);
+
+  useEffect(() => {
+    const storedTeachersData = window.localStorage.getItem(
+      LocalStorageKeys.UserKey
+    );
+    if (storedTeachersData) {
+      const parsedTeachers = JSON.parse(storedTeachersData);
+      setTeachers(parsedTeachers);
+    }
+  }, []);
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    // You can add your authentication logic here
     if (!user || !password) {
-      alert("Please fill user and password!");
+      alert("Please fill in user and password!");
     } else {
-      if (user === "admin" || password === "admin") {
-        setDisplay(LoginEnum.HOME);
-        reset();
+      const foundUser = teachers.find((teacher) => teacher.user === user);
+      if (foundUser) {
+        if (foundUser.password === password) {
+          setDisplay(LoginEnum.HOME);
+          reset();
+        } else {
+          alert("Password is Invalid! Please correct your Password");
+        }
       } else {
-        alert("UserName or Password is Invalid!");
+        alert("Please Register Your User!");
       }
     }
   };
