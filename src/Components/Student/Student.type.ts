@@ -15,7 +15,7 @@ export interface ITeacher {
   age: string;
   email: string;
   school: string;
-  user: string;
+  userName: string;
   password: string;
 }
 

@@ -1,8 +1,12 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import "./signUp.css";
 import { ITeacher, Schools } from "../Student/Student.type";
 import { LocalStorageKeys } from "Shared/Constants/AppConstants";
-import { TeacherContext } from "Context/TeacherContext";
+import { TeacherContext } from "Components/Store/Context/TeacherContext";
+import {
+  getRegisteredUsers,
+  registration,
+} from "Components/Store/DbOperations";
 
 interface ISignUpProps {
   onBack: () => void;
@@ -18,12 +22,15 @@ const SignUp = (props: ISignUpProps) => {
   const [age, setAge] = useState("");
   const [email, setEmail] = useState("");
   const [school, setSchool] = useState("");
-  const [user, setUser] = useState("");
+  const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
 
-  // useEffect(() => {
-  //   console.log(userList);
-  // }, [userList]);
+  useEffect(() => {
+    const dbUsers = getRegisteredUsers();
+    teachersContext.setTeachers(dbUsers);
+
+    // setUserList(dbUsers);
+  }, []);
 
   const onFirstNameHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFirstName(e.target.value);
@@ -41,7 +48,7 @@ const SignUp = (props: ISignUpProps) => {
     setSchool(e.target.value);
   };
   const onUserHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setUser(e.target.value);
+    setUserName(e.target.value);
   };
   const onPasswordHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
@@ -55,7 +62,7 @@ const SignUp = (props: ISignUpProps) => {
       !age ||
       !email ||
       !school ||
-      !user ||
+      !userName ||
       !password
     ) {
       alert("Please fill in all the fields before Sign Up.");
@@ -67,32 +74,30 @@ const SignUp = (props: ISignUpProps) => {
       return;
     }
 
-    const existingUser = teachersContext.teachers.find(
-      (u) => u.user === user || u.email === email
-    );
-
-    if (existingUser) {
-      alert("Username or Email already exists. Please choose another.");
-      return;
-    }
-
-    const signUpData: ITeacher = {
+    // const existingUser = teachersContext.teachers.find(
+    //   (u) => u.user === user || u.email === email
+    // );
+    const userToRegister: ITeacher = {
       id: new Date().toString(),
       firstName: firstName,
       lastName: lastName,
       age: age,
       email: email,
       school: school,
-      user: user,
+      userName: userName,
       password: password,
     };
-    const updatedUserList = [...teachersContext.teachers, signUpData];
+
+    const isUserExist = registration(userToRegister);
+
+    if (isUserExist) {
+      alert("Username or Email already exists. Please choose another.");
+      return;
+    }
+
+    const updatedUserList = [...teachersContext.teachers, userToRegister];
     teachersContext.setTeachers(updatedUserList);
-    // console.log(userList);
-    window.localStorage.setItem(
-      LocalStorageKeys.UserKey,
-      JSON.stringify(updatedUserList)
-    );
+
     alert("User Registered");
     reset();
   };
@@ -104,7 +109,7 @@ const SignUp = (props: ISignUpProps) => {
     setAge("");
     setEmail("");
     setSchool("");
-    setUser("");
+    setUserName("");
     setPassword("");
   };
   return (
@@ -155,7 +160,12 @@ const SignUp = (props: ISignUpProps) => {
         </div>
         <div className="form-group">
           <label htmlFor="user">User:</label>
-          <input type="text" id="user" value={user} onChange={onUserHandler} />
+          <input
+            type="text"
+            id="user"
+            value={userName}
+            onChange={onUserHandler}
+          />
         </div>
         <div className="form-group">
           <label htmlFor="password">Password:</label>

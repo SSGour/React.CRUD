@@ -5,7 +5,7 @@ import StudentList from "../Student/List";
 import AddStudent from "../Student/Add";
 import EditStudent from "../Student/Edit";
 import { LocalStorageKeys } from "Shared/Constants/AppConstants";
-import { StudentContext } from "Context/StudentContext";
+import { StudentContext } from "Components/Store/Context/StudentContext";
 
 interface HomeProps {
   logOutHandler: () => void;

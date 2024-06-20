@@ -6,29 +6,42 @@ import SignUp from "./SignUp";
 import { LocalStorageKeys } from "Shared/Constants/AppConstants";
 
 const Login = () => {
-  const [user, setUser] = useState("");
+  const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [display, setDisplay] = useState(LoginEnum.LOGIN);
-  const [teachers, setTeachers] = useState<ITeacher[]>([]);
+  const [registeredUser, setRegisteredUser] = useState<ITeacher[]>([]);
 
   useEffect(() => {
     const storedTeachersData = window.localStorage.getItem(
-      LocalStorageKeys.UserKey
+      LocalStorageKeys.UserListKey
     );
     if (storedTeachersData) {
-      const parsedTeachers = JSON.parse(storedTeachersData);
-      setTeachers(parsedTeachers);
+      const storedTeacher = JSON.parse(storedTeachersData);
+      setRegisteredUser(storedTeacher);
+    }
+
+    const loggedUser = window.localStorage.getItem(
+      LocalStorageKeys.LoggedInUserKey
+    );
+    if (loggedUser) {
+      setDisplay(LoginEnum.HOME);
     }
   }, []);
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!user || !password) {
+    if (!userName || !password) {
       alert("Please fill in user and password!");
     } else {
-      const foundUser = teachers.find((teacher) => teacher.user === user);
+      const foundUser = registeredUser.find(
+        (teacher) => teacher.userName === userName
+      );
       if (foundUser) {
         if (foundUser.password === password) {
+          window.localStorage.setItem(
+            LocalStorageKeys.LoggedInUserKey,
+            userName
+          );
           setDisplay(LoginEnum.HOME);
           reset();
         } else {
@@ -41,8 +54,9 @@ const Login = () => {
   };
 
   const onUserHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setUser(e.target.value);
+    setUserName(e.target.value);
   };
+
   const onPassHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
   };
@@ -52,11 +66,12 @@ const Login = () => {
   };
 
   const backToLoginPage = () => {
+    window.localStorage.removeItem(LocalStorageKeys.LoggedInUserKey);
     setDisplay(LoginEnum.LOGIN);
   };
 
   const reset = () => {
-    setUser("");
+    setUserName("");
     setPassword("");
   };
 
@@ -72,7 +87,7 @@ const Login = () => {
                 type="text"
                 id="user"
                 className="input"
-                value={user}
+                value={userName}
                 onChange={onUserHandler}
               />
             </div>

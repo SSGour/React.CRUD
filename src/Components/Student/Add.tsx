@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { IStudent, Schools } from "./Student.type";
 import "./add.css";
-import { StudentContext } from "Context/StudentContext";
+import { StudentContext } from "Components/Store/Context/StudentContext";
 
 interface AddStudentProps {
   onBackBtnHandler: () => void;
@@ -129,15 +129,15 @@ const AddStudent = ({ onBackBtnHandler, onSubmitHandler }: AddStudentProps) => {
           />
         </div>
         <div className="btnDiv">
+          <button type="submit" className="addBtn">
+            Add Student
+          </button>
           <button
             type="button"
             onClickCapture={onBackBtnHandler}
             className="backBtn"
           >
             Back
-          </button>
-          <button type="submit" className="addBtn">
-            Add Student
           </button>
         </div>
       </form>

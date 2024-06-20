@@ -1,6 +1,7 @@
 export const LocalStorageKeys = {
   StudentListKey: "StudentList",
-  UserKey: "UserList",
+  UserListKey: "UserList",
+  LoggedInUserKey: "loggedInUser",
 };
 
 //it is just an example, you can use you creative abilities to make it more beautiful :)

@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { IStudent, Schools } from "./Student.type";
 import "./add.css";
-import { StudentContext } from "Context/StudentContext";
+import { StudentContext } from "Components/Store/Context/StudentContext";
 
 interface StudentEditProps {
   dataToEdit: IStudent;
