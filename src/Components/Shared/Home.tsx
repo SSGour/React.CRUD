@@ -6,6 +6,8 @@ import AddStudent from "../Student/Add";
 import EditStudent from "../Student/Edit";
 import { LocalStorageKeys } from "Shared/Constants/AppConstants";
 import { StudentContext } from "Components/Store/Context/StudentContext";
+import { getData, setData } from "Components/Store/LocalStorageUtils";
+import { getRegisteredStudent } from "Components/Store/DbOperations";
 
 interface HomeProps {
   logOutHandler: () => void;
@@ -18,19 +20,16 @@ export const Home = ({ logOutHandler }: HomeProps) => {
   // State to manage the student data being edited
   const [dataToEdit, setDataToEdit] = useState<IStudent | null>(null);
 
+  //get User Name from local storage
+  const userName = getData(LocalStorageKeys.LoggedInUserKey)?.toUpperCase();
+
   // Accessing the student context
   const studentContext = useContext(StudentContext);
 
   // useEffect to load the student list from local storage on component mount
   useEffect(() => {
-    const dataInStorage = window.localStorage.getItem(
-      LocalStorageKeys.StudentListKey
-    );
-
-    if (dataInStorage) {
-      const list = JSON.parse(dataInStorage);
-      studentContext.setStudents(list);
-    }
+    const dataInStorage = getRegisteredStudent();
+    studentContext.setStudents(dataInStorage);
   }, []);
 
   // Handler to switch to the add student page
@@ -47,15 +46,12 @@ export const Home = ({ logOutHandler }: HomeProps) => {
   const updateStudentList = (list: IStudent[]) => {
     studentContext.setStudents(list);
 
-    window.localStorage.setItem(
-      LocalStorageKeys.StudentListKey,
-      JSON.stringify(list)
-    );
+    setData(LocalStorageKeys.StudentListKey, JSON.stringify(list));
   };
 
   // Function to add a new student to the list
-  const addStudent = (data: IStudent) => {
-    const addStudent = [...studentContext.students, data];
+  const addStudent = (stu: IStudent) => {
+    const addStudent = [...studentContext.students, stu];
     updateStudentList(addStudent);
     setDisplayPage(PageEnum.LIST);
   };
@@ -90,6 +86,9 @@ export const Home = ({ logOutHandler }: HomeProps) => {
       <header>
         <h1>React: CRUD Operation</h1>
       </header>
+      <div className="userName">
+        <h1> Hello {userName}</h1>
+      </div>
       <section>
         {displayPage === PageEnum.LIST && (
           <>

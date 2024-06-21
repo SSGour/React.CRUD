@@ -130,15 +130,15 @@ const EditStudent = ({
           />
         </div>
         <div className="btnDiv">
+          <button type="submit" className="addBtn">
+            Update
+          </button>
           <button
             type="button"
             onClickCapture={onBackBtnHandler}
             className="backBtn"
           >
             Cancel
-          </button>
-          <button type="submit" className="addBtn">
-            Update
           </button>
         </div>
       </form>

@@ -12,7 +12,9 @@ export const StudentProvider: React.FC<IStudentProviderProps> = (
   const [students, setStudents] = useState<IStudent[]>([]);
 
   const add = (stu: IStudent) => {
-    //check if already exist
+    //find existing student
+
+    //remove from array
 
     //add to student array
     students.push(stu);

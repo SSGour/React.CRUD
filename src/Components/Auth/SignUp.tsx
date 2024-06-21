@@ -1,7 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import "./signUp.css";
 import { ITeacher, Schools } from "../Student/Student.type";
-import { LocalStorageKeys } from "Shared/Constants/AppConstants";
 import { TeacherContext } from "Components/Store/Context/TeacherContext";
 import {
   getRegisteredUsers,
@@ -28,8 +27,6 @@ const SignUp = (props: ISignUpProps) => {
   useEffect(() => {
     const dbUsers = getRegisteredUsers();
     teachersContext.setTeachers(dbUsers);
-
-    // setUserList(dbUsers);
   }, []);
 
   const onFirstNameHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -95,11 +92,12 @@ const SignUp = (props: ISignUpProps) => {
       return;
     }
 
-    const updatedUserList = [...teachersContext.teachers, userToRegister];
-    teachersContext.setTeachers(updatedUserList);
+    // const updatedUserList = [...teachersContext.teachers, userToRegister];
+    // teachersContext.setTeachers(updatedUserList);
 
     alert("User Registered");
     reset();
+    onBack();
   };
 
   // Clear the form after submission
@@ -159,7 +157,7 @@ const SignUp = (props: ISignUpProps) => {
           </select>
         </div>
         <div className="form-group">
-          <label htmlFor="user">User:</label>
+          <label htmlFor="user">User Name:</label>
           <input
             type="text"
             id="user"

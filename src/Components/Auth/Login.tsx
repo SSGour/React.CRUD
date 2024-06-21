@@ -4,6 +4,7 @@ import "./login.css";
 import { ITeacher, LoginEnum } from "../Student/Student.type";
 import SignUp from "./SignUp";
 import { LocalStorageKeys } from "Shared/Constants/AppConstants";
+import { getData, setData } from "Components/Store/LocalStorageUtils";
 
 const Login = () => {
   const [userName, setUserName] = useState("");
@@ -12,17 +13,14 @@ const Login = () => {
   const [registeredUser, setRegisteredUser] = useState<ITeacher[]>([]);
 
   useEffect(() => {
-    const storedTeachersData = window.localStorage.getItem(
-      LocalStorageKeys.UserListKey
-    );
+    const storedTeachersData = getData(LocalStorageKeys.UserListKey);
+
     if (storedTeachersData) {
       const storedTeacher = JSON.parse(storedTeachersData);
       setRegisteredUser(storedTeacher);
     }
 
-    const loggedUser = window.localStorage.getItem(
-      LocalStorageKeys.LoggedInUserKey
-    );
+    const loggedUser = getData(LocalStorageKeys.LoggedInUserKey);
     if (loggedUser) {
       setDisplay(LoginEnum.HOME);
     }
@@ -36,12 +34,10 @@ const Login = () => {
       const foundUser = registeredUser.find(
         (teacher) => teacher.userName === userName
       );
+      const userFullName = `${foundUser?.firstName} ${foundUser?.lastName}`;
       if (foundUser) {
         if (foundUser.password === password) {
-          window.localStorage.setItem(
-            LocalStorageKeys.LoggedInUserKey,
-            userName
-          );
+          setData(LocalStorageKeys.LoggedInUserKey, userFullName);
           setDisplay(LoginEnum.HOME);
           reset();
         } else {
@@ -82,7 +78,7 @@ const Login = () => {
           <h1 className="title">User Login</h1>
           <form className="form" onSubmit={handleLogin}>
             <div>
-              <label htmlFor="user">User:</label>
+              <label htmlFor="user">User Name:</label>
               <input
                 type="text"
                 id="user"

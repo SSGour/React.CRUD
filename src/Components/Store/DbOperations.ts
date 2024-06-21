@@ -1,22 +1,20 @@
-import { ITeacher } from "Components/Student/Student.type";
-import { json } from "stream/consumers";
+import { IStudent, ITeacher } from "Components/Student/Student.type";
 import { getData, setData } from "./LocalStorageUtils";
 import { LocalStorageKeys } from "Shared/Constants/AppConstants";
 
 //Auth
 export const registration = (user: ITeacher) => {
-  //make string and store to db
-  const userToRegister = JSON.stringify(user);
-
-  // need to check if there is anyuser list exist ,
+  // need to check if there is any user list exist ,
   //if exist then check for that user, alert the user that email id already exist
   //else register the user
   const dbUsers = getData(LocalStorageKeys.UserListKey);
   let userList = dbUsers ? (JSON.parse(dbUsers) as ITeacher[]) : [];
   // check for user
-  if (userList.length > 0) {
+  if (userList) {
     let isUserAlreadyExist = userList.find(
-      (usr: ITeacher) => usr.email.toLowerCase() === user.email.toLowerCase()
+      (usr: ITeacher) =>
+        usr.email.toLowerCase() === user.email.toLowerCase() ||
+        user.userName.toLowerCase() === user.userName.toLowerCase()
     );
 
     if (isUserAlreadyExist) {
@@ -36,4 +34,9 @@ export const getRegisteredUsers = (): ITeacher[] => {
   return userList;
 };
 
-export const Login = (username, apssw) => {};
+export const getRegisteredStudent = (): IStudent[] => {
+  const dbStudent = getData(LocalStorageKeys.StudentListKey);
+  const studentList = dbStudent ? (JSON.parse(dbStudent) as IStudent[]) : [];
+
+  return studentList;
+};

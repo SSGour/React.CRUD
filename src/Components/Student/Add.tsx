@@ -1,11 +1,11 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { IStudent, Schools } from "./Student.type";
 import "./add.css";
-import { StudentContext } from "Components/Store/Context/StudentContext";
+import { getRegisteredStudent } from "Components/Store/DbOperations";
 
 interface AddStudentProps {
   onBackBtnHandler: () => void;
-  onSubmitHandler: (data: IStudent) => void;
+  onSubmitHandler: (studentCollection: IStudent) => void;
 }
 
 const AddStudent = ({ onBackBtnHandler, onSubmitHandler }: AddStudentProps) => {
@@ -49,7 +49,7 @@ const AddStudent = ({ onBackBtnHandler, onSubmitHandler }: AddStudentProps) => {
       return;
     }
 
-    const data: IStudent = {
+    const studentCollection: IStudent = {
       id: new Date().toString(),
       firstName: firstName,
       lastName: lastName,
@@ -58,10 +58,21 @@ const AddStudent = ({ onBackBtnHandler, onSubmitHandler }: AddStudentProps) => {
       school: school,
       standard: standard,
     };
-    onSubmitHandler(data);
 
-    alert("Student Added");
-    resetForm();
+    let dbStudent = getRegisteredStudent();
+    if (dbStudent) {
+      let isStudentExist = dbStudent.find(
+        (stu) =>
+          stu.email.toLowerCase() === studentCollection.email.toLowerCase()
+      );
+      if (isStudentExist) {
+        alert("Student Email already Exist");
+      } else {
+        onSubmitHandler(studentCollection);
+        alert("Student Added");
+        resetForm();
+      }
+    }
   };
 
   const resetForm = () => {
