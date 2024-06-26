@@ -7,7 +7,9 @@ interface StudentListProps {
   onDelete: (id: string) => void;
   onEdit: (data: IStudent) => void;
 }
-const StudentList = ({ list, onDelete, onEdit }: StudentListProps) => {
+
+const StudentList = (props: StudentListProps) => {
+  const { list, onDelete, onEdit } = props;
   return (
     <>
       <h1 className="stuDetails">Student Details</h1>

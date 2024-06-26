@@ -4,7 +4,12 @@ import "./login.css";
 import { ITeacher, LoginEnum } from "../Student/Student.type";
 import SignUp from "./SignUp";
 import { LocalStorageKeys } from "Shared/Constants/AppConstants";
-import { getData, setData } from "Components/Store/LocalStorageUtils";
+import {
+  getLoggedInUser,
+  getRegisteredUsers,
+  setLoggedInUser,
+} from "Components/Store/DbOperations";
+import { setData } from "Components/Store/LocalStorageUtils";
 
 const Login = () => {
   const [userName, setUserName] = useState("");
@@ -13,14 +18,10 @@ const Login = () => {
   const [registeredUser, setRegisteredUser] = useState<ITeacher[]>([]);
 
   useEffect(() => {
-    const storedTeachersData = getData(LocalStorageKeys.UserListKey);
+    const storedTeachersData = getRegisteredUsers();
+    setRegisteredUser(storedTeachersData);
 
-    if (storedTeachersData) {
-      const storedTeacher = JSON.parse(storedTeachersData);
-      setRegisteredUser(storedTeacher);
-    }
-
-    const loggedUser = getData(LocalStorageKeys.LoggedInUserKey);
+    const loggedUser = getLoggedInUser();
     if (loggedUser) {
       setDisplay(LoginEnum.HOME);
     }
@@ -35,9 +36,11 @@ const Login = () => {
         (teacher) => teacher.userName === userName
       );
       const userFullName = `${foundUser?.firstName} ${foundUser?.lastName}`;
+      const userSchool = `${foundUser?.school}`;
       if (foundUser) {
         if (foundUser.password === password) {
-          setData(LocalStorageKeys.LoggedInUserKey, userFullName);
+          setLoggedInUser(userFullName);
+          setData(LocalStorageKeys.UserSchoolKey, userSchool);
           setDisplay(LoginEnum.HOME);
           reset();
         } else {
