@@ -18,18 +18,30 @@ body {
   }
 
   .userName {
-    background-color: #fff;
-    padding: 20px 40px;
+    background-color: #f5f5f5; 
+    border: 2px solid #ddd;
     border-radius: 10px;
+    padding: 20px; 
+    margin: 20px 0; 
+    display: flex;
+    justify-content: space-around;
+    /* text-align: center;  */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    text-align: center;
-}
-
-.userName h1 {
-    margin: 0;
-    color: #333;
-    font-size: 2em;
-}
+  }
+  
+  .userName h1 {
+    font-size: 2em; 
+    color: #333; 
+    margin-bottom: 10px; 
+    font-family: 'Arial', sans-serif; 
+  }
+  
+  .userName h2 {
+    font-size: 1.5em; 
+    color: #666; 
+    margin: 0; 
+    font-family: 'Arial', sans-serif;
+  }  
   
   section {
     width: 80%;

@@ -1,6 +1,8 @@
 import { IStudent } from "./Student.type";
 import "./List.css";
 import ListItem from "./ListItem";
+import { getData } from "Components/Store/LocalStorageUtils";
+import { LocalStorageKeys } from "Shared/Constants/AppConstants";
 
 interface StudentListProps {
   list: IStudent[];
@@ -10,6 +12,12 @@ interface StudentListProps {
 
 const StudentList = (props: StudentListProps) => {
   const { list, onDelete, onEdit } = props;
+
+  const user = getData(LocalStorageKeys.UserSchoolKey);
+
+  // Filter the list based on the user's school
+  const filteredList = list.filter((student) => student.school === user);
+
   return (
     <>
       <h1 className="stuDetails">Student Details</h1>
@@ -24,7 +32,7 @@ const StudentList = (props: StudentListProps) => {
           <th>Action</th>
         </thead>
         <tbody>
-          {list.map((student, index) => (
+          {filteredList.map((student, index) => (
             <ListItem
               key={index}
               student={student}

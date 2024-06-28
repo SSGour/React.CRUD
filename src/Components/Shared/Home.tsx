@@ -22,6 +22,7 @@ export const Home = ({ logOutHandler }: HomeProps) => {
 
   //get User Name from local storage
   const userName = getData(LocalStorageKeys.LoggedInUserKey)?.toUpperCase();
+  const userSchoolName = getData(LocalStorageKeys.UserSchoolKey);
 
   // Accessing the student context
   const studentContext = useContext(StudentContext);
@@ -88,6 +89,7 @@ export const Home = ({ logOutHandler }: HomeProps) => {
       </header>
       <div className="userName">
         <h1> Hello {userName}</h1>
+        <h2>School Name: {userSchoolName}</h2>
       </div>
       <section>
         {displayPage === PageEnum.LIST && (
