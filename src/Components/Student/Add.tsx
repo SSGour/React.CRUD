@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { IStudent, Schools } from "./Student.type";
 import "./add.css";
 import { getRegisteredStudent } from "Components/Store/DbOperations";
+import { getData } from "Components/Store/LocalStorageUtils";
+import { LocalStorageKeys } from "Shared/Constants/AppConstants";
 
 interface AddStudentProps {
   onBackBtnHandler: () => void;
@@ -16,6 +18,14 @@ const AddStudent = ({ onBackBtnHandler, onSubmitHandler }: AddStudentProps) => {
   const [school, setSchool] = useState("");
   const [standard, setStandard] = useState("");
 
+  useEffect(() => {
+    const fetchUserSchool = () => {
+      const userSchool = getData(LocalStorageKeys.UserSchoolKey);
+      setSchool(userSchool || "");
+    };
+    fetchUserSchool();
+  }, []);
+
   const onFirstNameHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFirstName(e.target.value);
   };
@@ -23,15 +33,19 @@ const AddStudent = ({ onBackBtnHandler, onSubmitHandler }: AddStudentProps) => {
   const onLastNameHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setLastName(e.target.value);
   };
+
   const onAgeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setAge(e.target.value);
   };
+
   const onEmailHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
   };
+
   const onSchoolHandler = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSchool(e.target.value);
   };
+
   const onStandardHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setStandard(e.target.value);
   };
@@ -121,7 +135,12 @@ const AddStudent = ({ onBackBtnHandler, onSubmitHandler }: AddStudentProps) => {
         </div>
         <div>
           <label htmlFor="schools">Schools:</label>
-          <select id="schools" value={school} onChange={onSchoolHandler}>
+          <select
+            disabled
+            id="schools"
+            value={school}
+            onChange={onSchoolHandler}
+          >
             <option value="">Select</option>
             {Schools.map((school) => (
               <option key={school} value={school}>

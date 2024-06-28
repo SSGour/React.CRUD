@@ -1,7 +1,9 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { IStudent, Schools } from "./Student.type";
 import "./add.css";
 import { StudentContext } from "Components/Store/Context/StudentContext";
+import { getData } from "Components/Store/LocalStorageUtils";
+import { LocalStorageKeys } from "Shared/Constants/AppConstants";
 
 interface StudentEditProps {
   dataToEdit: IStudent;
@@ -21,6 +23,14 @@ const EditStudent = ({
   const [email, setEmail] = useState(dataToEdit.email);
   const [school, setSchool] = useState(dataToEdit.school);
   const [standard, setStandard] = useState(dataToEdit.standard);
+
+  useEffect(() => {
+    const fetchUserSchool = () => {
+      const userSchool = getData(LocalStorageKeys.UserSchoolKey);
+      setSchool(userSchool || "");
+    };
+    fetchUserSchool();
+  }, []);
 
   const onFirstNameHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFirstName(e.target.value);
@@ -111,7 +121,12 @@ const EditStudent = ({
         </div>
         <div>
           <label htmlFor="schools">Schools:</label>
-          <select id="schools" value={school} onChange={onSchoolHandler}>
+          <select
+            disabled
+            id="schools"
+            value={school}
+            onChange={onSchoolHandler}
+          >
             <option value="">Select</option>
             {Schools.map((school) => (
               <option key={school} value={school}>
