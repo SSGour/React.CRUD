@@ -77,41 +77,39 @@ const Login = () => {
   return (
     <>
       {display === LoginEnum.LOGIN && (
-        <div className="container">
+        <form className="form" onSubmit={handleLogin}>
           <h1 className="title">User Login</h1>
-          <form className="form" onSubmit={handleLogin}>
-            <div>
-              <label htmlFor="user">User Name:</label>
-              <input
-                type="text"
-                id="user"
-                className="input"
-                value={userName}
-                onChange={onUserHandler}
-              />
-            </div>
-            <div>
-              <label htmlFor="password">Password:</label>
-              <input
-                type="password"
-                id="password"
-                className="input"
-                value={password}
-                onChange={onPassHandler}
-              />
-            </div>
-            <button type="submit" className="button">
-              LogIn
-            </button>
-            <button
-              type="button"
-              className="button"
-              onClickCapture={signUpHandler}
-            >
-              Sign Up
-            </button>
-          </form>
-        </div>
+          <div>
+            <label htmlFor="user">User Name:</label>
+            <input
+              type="text"
+              id="user"
+              className="input"
+              value={userName}
+              onChange={onUserHandler}
+            />
+          </div>
+          <div>
+            <label htmlFor="password">Password:</label>
+            <input
+              type="password"
+              id="password"
+              className="input"
+              value={password}
+              onChange={onPassHandler}
+            />
+          </div>
+          <button type="submit" className="button">
+            LogIn
+          </button>
+          <button
+            type="button"
+            className="button"
+            onClickCapture={signUpHandler}
+          >
+            Sign Up
+          </button>
+        </form>
       )}
       {display === LoginEnum.HOME && <Home logOutHandler={backToLoginPage} />}
       {display === LoginEnum.SIGNUP && <SignUp onBack={backToLoginPage} />}
